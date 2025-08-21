@@ -1,7 +1,3 @@
-# ROS2BodyCommander
-
-This project took part at LORIA Lab where the goal is to control robot motion via ros2 and pretrained ai models
-The robot unitree go2 was used for testing .
 # Human-Robot Interaction with Gesture Control
 
 This repository contains the code for a ROS2-based robotic project that enables gesture-to-action execution and human tracking using a webcam. The system subscribes to human body tracking data, processes gestures, and sends commands to a robot (e.g., Unitree) via the `unitree_api`. It also publishes camera images and camera info for human detection.
@@ -35,6 +31,8 @@ source /opt/ros/jazzy/setup.bash
 Create a ROS2 workspace and install required libraries:
 
 ```bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws
 rosdep install --from-paths src -y --ignore-src
 pip install opencv-python numpy annonce
 pip install lap ikpy
@@ -45,8 +43,7 @@ sudo apt install ros-jazzy-xacro
 Clone the necessary ROS2 packages into your workspace's `src` directory:
 
 ```bash
-git clone https://github.com/douaeelg/ROS2BodyCommander.git
-cd ROS2BodyCommander
+cd ~/ros2_ws/src
 git clone https://github.com/ros4hri/hri_body_detect.git
 git clone https://github.com/ros4hri/hri_msgs.git
 git clone https://github.com/ros2/rclpy.git
@@ -54,6 +51,9 @@ git clone https://github.com/pal-robotics/launch_pal.git
 git clone https://github.com/ros4hri/human_description.git
 git clone https://github.com/unitreerobotics/unitree_ros2.git
 ```
+
+### 4. Copy Project Files
+Place the provided Python scripts (`commander_new.py`, `listener.py`, `pub_new_info.py`) into the `~/ros2_ws/src` directory.
 
 ### 5. Build the Workspace
 Build the workspace using `colcon`:
@@ -65,7 +65,7 @@ source install/setup.bash
 ```
 
 ### 6. Configure Detection Confidence
-Set the detection confidence threshold to 80% by editing `~/ROS2BodyCommander/srC/hri_body_detect/config/00-defaults.yml`:
+Set the detection confidence threshold to 80% by editing `~/ros2_ws/src/hri_body_detect/config/00-defaults.yml`:
 
 ```yaml
 detection_conf_thresh: 0.8
@@ -84,21 +84,21 @@ detection_conf_thresh: 0.8
    In a new terminal, source the workspace and run:
 
    ```bash
-   python3 ~/ROS2BodyCommander/src/pub_new_info.py
+   python3 ~/ros2_ws/src/pub_new_info.py
    ```
 
 3. **Activate Gesture-to-Action Control**:
    In another terminal, source the workspace and run:
 
    ```bash
-   python3 ~/ROS2BodyCommander/src/commander_new.py
+   python3 ~/ros2_ws/src/commander_new.py
    ```
 
 4. **Activate Human Tracking**:
    In a separate terminal, source the workspace and run:
 
    ```bash
-   python3 ~/ROS2BodyCommander/src/listener.py
+   python3 ~/ros2_ws/src/listener.py
    ```
 
 ## Gesture-to-Action Mapping
@@ -121,7 +121,4 @@ The `listener.py` script tracks the first detected human and rotates the robot t
 ## Notes
 - Ensure the webcam is accessible and the correct device index is set in `pub_new_info.py`.
 - The system assumes a Unitree robot with the `unitree_api` interface.
-- All scripts must run in separate terminals with the ROS2 workspace sourced.# Human-Robot Interaction with Gesture Control
-
-This repository contains the code for a ROS2-based robotic project that enables gesture-to-action execution and human tracking using a webcam. The system subscribes to human body tracking data, processes gestures, and sends commands to a robot (e.g., Unitree) via the `unitree_api`. It also publishes camera images and camera info for human detection.
-
+- All scripts must run in separate terminals with the ROS2 workspace sourced.
