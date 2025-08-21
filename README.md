@@ -1,5 +1,7 @@
 # ROS2BodyCommander
-Human-Robot Interaction with Gesture Control and Tracking
+
+This project took part at LORIA Lab where the goal is to control robot motion via ros2 and pretrained ai models
+The robot unitree go2 was used for testing .
 # Human-Robot Interaction with Gesture Control
 
 This repository contains the code for a ROS2-based robotic project that enables gesture-to-action execution and human tracking using a webcam. The system subscribes to human body tracking data, processes gestures, and sends commands to a robot (e.g., Unitree) via the `unitree_api`. It also publishes camera images and camera info for human detection.
